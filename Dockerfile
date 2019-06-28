@@ -1,5 +1,5 @@
-#FROM dynverse/dynwrappy:v0.1.0
-FROM continuumio/miniconda3
+FROM dynverse/dynwrappy:v0.1.0
+#FROM continuumio/miniconda3
 
 ENV SHELL bash
 
