@@ -55,12 +55,12 @@ p = dict()
 for x in task["parameters"]:
     p[x['id']] = x['default']
 
-pd.DataFrame(counts.toarray(),index=cell_ids,columns=gene_ids).T.to_csv('./counts.tsv',sep='\t')
+pd.DataFrame(counts.toarray(),index=cell_ids,columns=gene_ids).T.to_csv(output_folder + "counts.tsv",sep='\t')
 
 checkpoints["method_afterpreproc"] = time.time()
 
 
-adata=st.read(file_name="./counts.tsv")
+adata=st.read(file_name=output_folder + "counts.tsv")
 st.add_cell_labels(adata)
 st.add_cell_colors(adata)
 
