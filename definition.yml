@@ -61,7 +61,7 @@ parameters:
   - id: n_components
     description: Number of components to keep.
     type: int
-    default: 3
+    default: 2
   - id: clustering
     description: clustering method used to infer the initial nodes.
     type: str
@@ -90,3 +90,7 @@ parameters:
     description: The number of parallel jobs to run
     type: integer
     default: 5
+  - id: save_fig
+    description: if True,save the figure to pdf files.
+    type: logical
+    default: no  
