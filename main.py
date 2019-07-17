@@ -104,27 +104,38 @@ st.stream_plot(adata,root=p["root"],fig_size=(8,8),save_fig=p["save_fig"])
 checkpoints["method_aftermethod"] = time.time()
 
 
-# grouping
-grouping = pd.DataFrame({"cell_id": adata.obs.index, "group_id": adata.obs.node})
-
-# milestone network
-milestone_network = pd.DataFrame(columns=['from','to','length','directed'])
-for i, edge in enumerate(adata.uns['epg'].edges):
-    dict_nodes_pos = nx.get_node_attributes(adata.uns['epg'],'pos')
-    milestone_network.loc[i] = ""
-    milestone_network.loc[i]['from'] = edge[0]
-    milestone_network.loc[i]['to'] = edge[1]
-    milestone_network.loc[i]['length'] = np.sqrt(((dict_nodes_pos[edge[0]] - dict_nodes_pos[edge[1]])**2).sum())
-    milestone_network.loc[i]['directed'] = False
-
-# dimred
-dimred = pd.DataFrame([x for x in adata.obsm['X_vis_umap'].T]).T
-dimred.columns = ["comp_" + str(i+1) for i in range(dimred.shape[1])]
-dimred["cell_id"] = adata.obs.index
+dict_nodes_label = nx.get_node_attributes(adata.uns['flat_tree'],'label')
+dict_len = nx.get_edge_attributes(adata.uns['flat_tree'],'len')
 
 # progressions
-progressions = adata.obs[p["root"]+'_pseudotime'].reset_index()
-progressions.columns = ["cell_id", "pseudotime"]
+progressions = pd.DataFrame()
+list_from = [adata.obs.loc[x,'branch_id_alias'][0] for x in adata.obs.index]
+list_to = [adata.obs.loc[x,'branch_id_alias'][1] for x in adata.obs.index]
+list_percentage = list()
+for x in adata.obs.index:
+    branch_id_i = adata.obs.loc[x,'branch_id']
+    if (branch_id_i not in dict_len.keys()):
+        branch_id_i = (branch_id_i[1],branch_id_i[0])
+    list_percentage.append(adata.obs.loc[x,'branch_lam']/dict_len[branch_id_i])
+progressions['from'] = list_from
+progressions['to'] = list_to
+progressions['cell_id'] = adata.obs.index.tolist()
+progressions['percentage'] = list_percentage
+
+# milestone network
+milestone_network = pd.DataFrame(columns=['from','to','length'])
+for i, branch_id_i in enumerate(np.unique(adata.obs['branch_id'])):
+    milestone_network.loc[i] = ""
+    milestone_network.loc[i]['from'] = dict_nodes_label[branch_id_i[0]]
+    milestone_network.loc[i]['to'] = dict_nodes_label[branch_id_i[1]]
+    if (branch_id_i not in dict_len.keys()):
+        branch_id_i = (branch_id_i[1],branch_id_i[0])
+    milestone_network.loc[i]['length'] = dict_len[branch_id_i]
+
+# # dimred
+# dimred = pd.DataFrame([x for x in adata.obsm['X_vis_umap'].T]).T
+# dimred.columns = ["comp_" + str(i+1) for i in range(dimred.shape[1])]
+# dimred["cell_id"] = adata.obs.index
 
 
 # Save output -------------------------------------------------------------
