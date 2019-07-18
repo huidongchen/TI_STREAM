@@ -28,22 +28,15 @@ output_folder = sys.argv[2]
 
 # read in sparse matrix
 dataset_h5 = h5py.File(dataset_location)
-expression_h5 = dataset_h5["data"]["expression"]
 counts_h5 = dataset_h5["data"]["counts"]
-expression = scipy.sparse.csc_matrix((
-  expression_h5["x"][()],
-  expression_h5["i"][()],
-  expression_h5["p"][()]),
-  expression_h5["dims"][()]
-)
 counts = scipy.sparse.csc_matrix((
   counts_h5["x"][()],
   counts_h5["i"][()],
   counts_h5["p"][()]),
   counts_h5["dims"][()]
 )
-cell_ids = expression_h5["rownames"][()].astype(str)
-gene_ids = expression_h5["colnames"][()].astype(str)
+cell_ids = counts_h5["rownames"][()].astype(str)
+gene_ids = counts_h5["colnames"][()].astype(str)
 
 
 # Infer trajectories
