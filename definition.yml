@@ -53,11 +53,11 @@ parameters:
   - id: nb_pct
     description: The percentage of neighbor cells
     type: numeric
-    default: 0.1
+    default: 0.01
   - id: method
     description: Method used for dimension reduction.
     type: str
-    default: 'mlle'
+    default: 'se'
   - id: n_components
     description: Number of components to keep.
     type: int
