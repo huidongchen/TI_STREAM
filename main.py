@@ -70,6 +70,8 @@ if(adata.shape[1]<1000):
 else:
     st.select_variable_genes(adata,loess_frac=p["loess_frac"])
 
+p["nb_pct"] = p["nb_num"]/adata.obs.shape[0]
+
 st.dimension_reduction(adata,nb_pct = p["nb_pct"],n_components = p["n_components"],n_jobs = p["n_jobs"],method = p["method"])
 st.plot_dimension_reduction(adata,n_components = p["n_components"],save_fig=p["save_fig"])
 st.plot_visualization_2D(adata,save_fig=p["save_fig"],nb_pct=p["nb_pct"])
