@@ -73,8 +73,8 @@ else:
 #p["nb_pct"] = p["nb_num"]/adata.obs.shape[0]
 
 st.dimension_reduction(adata,n_neighbors = p["n_neighbors"],n_components = p["n_components"],n_jobs = p["n_jobs"],method = p["method"])
-st.plot_dimension_reduction(adata,n_components = p["n_components"],save_fig=p["save_fig"])
-st.plot_visualization_2D(adata,save_fig=p["save_fig"],n_neighbors=p["n_neighbors"])
+# st.plot_dimension_reduction(adata,n_components = p["n_components"],save_fig=p["save_fig"])
+# st.plot_visualization_2D(adata,save_fig=p["save_fig"],n_neighbors=p["n_neighbors"])
 
 
 st.seed_elastic_principal_graph(adata,clustering=p["clustering"],n_clusters=p["n_clusters"],n_neighbors=p["n_neighbors"])
@@ -87,12 +87,12 @@ if(len(adata.obs['branch_id'].unique())>1):
 if(not p["disable_EPG_ext"]):
     st.extend_elastic_principal_graph(adata)
 
-st.plot_branches_with_cells(adata,n_components=p["n_components"])
-st.plot_visualization_2D(adata,color_by='branch',save_fig=p["save_fig"])
+# st.plot_branches_with_cells(adata,n_components=p["n_components"])
+# st.plot_visualization_2D(adata,color_by='branch',save_fig=p["save_fig"])
 
 
-st.subwaymap_plot(adata,root=p["root"],fig_size=(8,6), save_fig=p["save_fig"]) 
-st.stream_plot(adata,root=p["root"],fig_size=(8,8),save_fig=p["save_fig"])
+# st.subwaymap_plot(adata,root=p["root"],fig_size=(8,6), save_fig=p["save_fig"]) 
+# st.stream_plot(adata,root=p["root"],fig_size=(8,8),save_fig=p["save_fig"])
 
 
 
