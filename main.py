@@ -74,10 +74,10 @@ else:
 
 st.dimension_reduction(adata,n_neighbors = p["n_neighbors"],n_components = p["n_components"],n_jobs = p["n_jobs"],method = p["method"])
 st.plot_dimension_reduction(adata,n_components = p["n_components"],save_fig=p["save_fig"])
-st.plot_visualization_2D(adata,save_fig=p["save_fig"],nb_pct=p["nb_pct"])
+st.plot_visualization_2D(adata,save_fig=p["save_fig"],n_neighbors=p["n_neighbors"])
 
 
-st.seed_elastic_principal_graph(adata,clustering=p["clustering"],n_clusters=p["n_clusters"],nb_pct=p["nb_pct"])
+st.seed_elastic_principal_graph(adata,clustering=p["clustering"],n_clusters=p["n_clusters"],n_neighbors=p["n_neighbors"])
 st.elastic_principal_graph(adata,epg_alpha=p["epg_alpha"],save_fig=p["save_fig"])
 
 if(len(adata.obs['branch_id'].unique())>1):
