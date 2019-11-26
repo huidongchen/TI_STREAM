@@ -50,10 +50,10 @@ parameters:
     description: The fraction of the data used in LOESS regression
     type: numeric
     default: 0.01
-  - id: nb_num
+  - id: n_neighbors
     description: The number of neighbor cells
-    type: numeric
-    default: 50.0
+    type: int
+    default: 100
   - id: method
     description: Method used for dimension reduction.
     type: str
