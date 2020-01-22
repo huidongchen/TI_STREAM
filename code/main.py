@@ -12,6 +12,7 @@ import json
 import stream as st
 import yaml
 import networkx as nx
+import anndata as ad
 
 
 import time
@@ -48,12 +49,17 @@ p = dict()
 for x in task["parameters"]:
     p[x['id']] = x['default']
 
-pd.DataFrame(counts.toarray(),index=cell_ids,columns=gene_ids).T.to_csv(output_folder + "counts.tsv",sep='\t')
+# pd.DataFrame(counts.toarray(),index=cell_ids,columns=gene_ids).T.to_csv(output_folder + "counts.tsv",sep='\t')
 
 checkpoints["method_afterpreproc"] = time.time()
 
 
-adata=st.read(file_name=output_folder + "counts.tsv")
+# adata=st.read(file_name=output_folder + "counts.tsv")
+
+adata = ad.AnnData(pd.DataFrame(counts.toarray(),index=cell_ids,columns=gene_ids))
+st.set_workdir(adata,'./stream_result')
+adata.uns['experiment'] = 'rna-seq'
+
 st.add_cell_labels(adata)
 st.add_cell_colors(adata)
 

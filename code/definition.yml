@@ -61,7 +61,7 @@ parameters:
   - id: n_components
     description: Number of components to keep.
     type: int
-    default: 2
+    default: 3
   - id: clustering
     description: clustering method used to infer the initial nodes.
     type: str
