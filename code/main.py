@@ -74,7 +74,7 @@ if(adata.shape[1]<1000):
     adata.uns['var_genes'] = gene_ids
     adata.obsm['var_genes'] = adata.X
 else:
-    st.select_variable_genes(adata,loess_frac=p["loess_frac"])
+    st.select_variable_genes(adata,loess_frac=p["loess_frac"],percentile=p["percentile"])
 
 #p["nb_pct"] = p["nb_num"]/adata.obs.shape[0]
 

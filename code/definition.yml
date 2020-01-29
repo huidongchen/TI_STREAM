@@ -50,6 +50,10 @@ parameters:
     description: The fraction of the data used in LOESS regression
     type: numeric
     default: 0.01
+  - id: percentile
+    description: Specify the percentile to select genes. Genes are ordered based on its distance from the fitted curve.
+    type: int
+    default: 90
   - id: n_neighbors
     description: The number of neighbor cells
     type: int
